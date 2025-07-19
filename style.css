@@ -1,42 +1,32 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@800&display=swap');
-
-html{
-    background-color: black;
-}
-.imitate-logo {
+body {
+  background-color: #313030;
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 1rem;
-  background-color: #0f1115; /* match the dark background from the image */
-  padding: 1rem 1.5rem;
-  border-radius: 10px;
-  width: fit-content;
+  height: 100vh;
+  margin: 0;
 }
 
-.logo-circle {
-  width: 70px;
-  height: 70px;
-  background: linear-gradient(135deg, #e66465, #6b5dd3);
-  border-radius: 50%;
+.logo-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.logo-i {
-  width: 16px;
-  height: 70%;
-  background-color: #111;
-  border-radius: 4px;
+.logo-circle {
+  width: 200px;
+  height: 200px;
+  background:linear-gradient(150deg, #f27077,#8345e8, #2b10b5);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 7px 10px rgba(0, 0, 0, 0.4);
 }
 
-.logo-text {
-  font-family: 'Manrope', sans-serif;
-  font-weight: 800;
-  font-size: 1.6rem;
-  color: #ffffff;
-  line-height: 1.1;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+.logo-letter {
+   height:140px;
+   width:38px;
+   background-color: #121212;
+   border-radius:4px;
 }
-</style>
