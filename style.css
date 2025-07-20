@@ -1,23 +1,46 @@
 body {
   background-color: #313030;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   margin: 0;
+  height: 200vh;
+  overflow-x: hidden;
+  font-family: sans-serif;
 }
 
+/* Logo initial state */
 .logo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition:2s ;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  opacity: 0;
+  transition: transform 2s ease, opacity 2s ease;
+  z-index: 10;
+  pointer-events: none;
 }
 
+.logo-container.visible {
+  opacity: 1;
+}
+
+/* Logo zoom + rotate on scroll */
+.logo-container.scrolled {
+  transform: translate(-50%, -50%) scale(30) rotate(270deg);
+  transition: transform 2.5s ease-in-out;
+}
+
+/* Logo letter (the I) */
+.logo-letter {
+  height: 140px;
+  width: 38px;
+  background-color: #121212;
+  border-radius: 4px;
+}
+
+/* Circle container */
 .logo-circle {
   width: 200px;
   height: 200px;
-  background:linear-gradient(150deg, #f27077,#8345e8, #2b10b5);
+  background: linear-gradient(150deg, #f27077, #8345e8, #2b10b5);
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -25,15 +48,28 @@ body {
   box-shadow: 0 7px 10px rgba(0, 0, 0, 0.4);
 }
 
-.logo-letter {
-   height:140px;
-   width:38px;
-   background-color: #121212;
-   border-radius:4px;
+/* Next section content */
+.next-section {
+  position: relative;
+  top: 100vh;
+  background-color: #313030;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
-.logo-container:hover{
-  transform:rotate(270deg);
-  scale:30;
+.next-section h1 {
+  transform: translateX(100%);
+  opacity: 0;
+  font-size: 3rem;
+  color: #121212;
+  transition: transform 1.5s ease, opacity 1.5s ease;
 }
 
+/* Slide in when ready */
+.next-section.show h1 {
+  transform: translateX(0);
+  opacity: 1;
+}
