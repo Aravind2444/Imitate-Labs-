@@ -11,6 +11,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition:2s ;
 }
 
 .logo-circle {
@@ -30,3 +31,9 @@ body {
    background-color: #121212;
    border-radius:4px;
 }
+
+.logo-container:hover{
+  transform:rotate(270deg);
+  scale:30;
+}
+
