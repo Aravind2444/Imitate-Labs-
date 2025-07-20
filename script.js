@@ -1,25 +1,37 @@
-$(document).ready(function () {
-  // Show logo initially
-  setTimeout(function () {
-    $(".logo-container").addClass("visible");
-  }, 100);
+// Register plugin
+gsap.registerPlugin(ScrollTrigger);
 
-  let animationTriggered = false;
+// Fade in logo on load
+gsap.to(".logo-container", {
+  opacity: 1,
+  duration: 1.5,
+  ease: "power2.out",
+  delay: 0.5
+});
 
-  $(window).on("scroll", function () {
-    const scrollTop = $(window).scrollTop();
+// Scroll animation: Zoom + rotate the logo
+gsap.to(".logo-container", {
+  scrollTrigger: {
+    trigger: ".hero",
+    start: "top top",
+    end: "bottom top",
+    scrub: true,
+    pin: true
+  },
+  scale: 30,
+  rotate: 270,
+  ease: "power2.inOut"
+});
 
-    if (scrollTop > 50 && !animationTriggered) {
-      animationTriggered = true;
-
-      // Trigger logo zoom + rotate
-      $(".logo-container").addClass("scrolled");
-
-      // After animation ends (2s), show next section
-      setTimeout(function () {
-        $(".logo-container").css("display", "none"); // hide logo after animation
-        $(".next-section").addClass("show");
-      }, 2000);
-    }
-  });
+// Text animation: Slide in welcome message
+gsap.to(".next-section h1", {
+  scrollTrigger: {
+    trigger: ".next-section",
+    start: "top 80%",
+    toggleActions: "play none none none"
+  },
+  x: 0,
+  opacity: 1,
+  duration: 1.5,
+  ease: "power2.out"
 });

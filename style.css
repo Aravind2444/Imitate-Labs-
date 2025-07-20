@@ -1,42 +1,31 @@
 body {
-  background-color: #313030;
   margin: 0;
-  height: 200vh;
-  overflow-x: hidden;
+  padding: 0;
   font-family: sans-serif;
+  background-color: #313030;
+  overflow-x: hidden;
 }
 
-/* Logo initial state */
+/* Logo section full viewport */
+.hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  background-color: #313030;
+  overflow: hidden;
+}
+
 .logo-container {
-  position: fixed;
+  transform: translate(-50%, -50%) scale(1) rotate(0deg);
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  position: absolute;
   opacity: 0;
-  transition: transform 2s ease, opacity 2s ease;
-  z-index: 10;
-  pointer-events: none;
 }
 
-.logo-container.visible {
-  opacity: 1;
-}
-
-/* Logo zoom + rotate on scroll */
-.logo-container.scrolled {
-  transform: translate(-50%, -50%) scale(30) rotate(270deg);
-  transition: transform 2.5s ease-in-out;
-}
-
-/* Logo letter (the I) */
-.logo-letter {
-  height: 140px;
-  width: 38px;
-  background-color: #121212;
-  border-radius: 4px;
-}
-
-/* Circle container */
 .logo-circle {
   width: 200px;
   height: 200px;
@@ -48,28 +37,27 @@ body {
   box-shadow: 0 7px 10px rgba(0, 0, 0, 0.4);
 }
 
-/* Next section content */
+.logo-letter {
+  height: 140px;
+  width: 38px;
+  background-color: #121212;
+  border-radius: 4px;
+}
+
+/* Next section */
 .next-section {
-  position: relative;
-  top: 100vh;
-  background-color: #313030;
   height: 100vh;
+  background-color: #121212;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  z-index: 0;
 }
 
 .next-section h1 {
+  font-size: 3rem;
+  color: #fffbfb;
   transform: translateX(100%);
   opacity: 0;
-  font-size: 3rem;
-  color: #121212;
-  transition: transform 1.5s ease, opacity 1.5s ease;
-}
-
-/* Slide in when ready */
-.next-section.show h1 {
-  transform: translateX(0);
-  opacity: 1;
 }
