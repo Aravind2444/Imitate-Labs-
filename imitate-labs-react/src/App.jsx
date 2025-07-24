@@ -5,7 +5,7 @@ function App() {
   const [animationTriggered, setAnimationTriggered] = useState(false);
   const [logoVisible, setLogoVisible] = useState(false);
 
-  // Show logo after short delay (like setTimeout on page load)
+  // Show logo after short delay
   useEffect(() => {
     const timeout = setTimeout(() => {
       setLogoVisible(true);
@@ -14,7 +14,7 @@ function App() {
     return () => clearTimeout(timeout);
   }, []);
 
-  // Handle scroll events
+  // Scroll behavior
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
@@ -24,13 +24,12 @@ function App() {
 
         setTimeout(() => {
           setLogoVisible(false);
-        }, 2000); // Same delay as your original
+        }, 2000);
       }
 
       if (scrollTop <= 50 && animationTriggered) {
         setAnimationTriggered(false);
 
-        // Delay the re-show for smoother effect
         setTimeout(() => {
           setLogoVisible(true);
         }, 50);
@@ -55,10 +54,7 @@ function App() {
         </div>
       </div>
 
-      {/* Next Section */}
-      <div className={`next-section ${animationTriggered ? 'show' : ''}`}>
-        <h1>Welcome to Imitate Labs...</h1>
-      </div>
+      {/* 🔜 Tagline section will go here next */}
     </>
   );
 }

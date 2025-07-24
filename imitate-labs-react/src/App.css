@@ -1,5 +1,5 @@
 body {
-  background-color: #313030;
+  background-color: #121212;
   margin: 0;
   height: 200vh;
   overflow-x: hidden;
@@ -46,31 +46,4 @@ body {
   justify-content: center;
   align-items: center;
   box-shadow: 0 7px 10px rgba(0, 0, 0, 0.4);
-}
-
-/* Next section content */
-.next-section {
-  margin-top:100vh;
-  position: relative;
-  top: 100vh;
-  background-color: #000000;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-.next-section h1 {
-  transform: translateX(100%);
-  opacity: 0;
-  font-size: 3rem;
-  color: #ffe2e2;
-  transition: transform 1.5s ease, opacity 1.5s ease;
-}
-
-/* Slide in when ready */
-.next-section.show h1 {
-  transform: translateX(0);
-  opacity: 1;
 }
