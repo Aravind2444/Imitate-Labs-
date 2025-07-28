@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
+import HeroSection from "./sections/HeroSection";
+import Tagline from "./sections/Tagline";
 
 function App() {
   const [animationTriggered, setAnimationTriggered] = useState(false);
@@ -14,48 +16,46 @@ function App() {
     return () => clearTimeout(timeout);
   }, []);
 
-  // Scroll behavior
+  // Animation trigger after 2 seconds
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
+    const triggerTimeout = setTimeout(() => {
+      setAnimationTriggered(true);
 
-      if (scrollTop > 50 && !animationTriggered) {
-        setAnimationTriggered(true);
+      // Hide logo after animation
+      setTimeout(() => {
+        setLogoVisible(false);
+      }, 2000);
+    }, 2000);
 
-        setTimeout(() => {
-          setLogoVisible(false);
-        }, 2000);
-      }
-
-      if (scrollTop <= 50 && animationTriggered) {
-        setAnimationTriggered(false);
-
-        setTimeout(() => {
-          setLogoVisible(true);
-        }, 50);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [animationTriggered]);
+    return () => clearTimeout(triggerTimeout);
+  }, []);
 
   return (
-    <>
-      {/* Logo */}
+    <main className="app-container">
+      {/* Initial Logo Animation */}
       <div
-        className={`logo-container ${logoVisible ? 'visible' : ''} ${
-          animationTriggered ? 'scrolled' : ''
+        className={`logo-container ${logoVisible ? "visible" : ""} ${
+          animationTriggered ? "timed_out" : ""
         }`}
-        style={{ display: logoVisible || !animationTriggered ? 'flex' : 'none' }}
+        style={{
+          display: logoVisible || !animationTriggered ? "flex" : "none",
+        }}
       >
         <div className="logo-circle">
           <div className="logo-letter"></div>
         </div>
       </div>
 
-      {/* 🔜 Tagline section will go here next */}
-    </>
+      {/* Scrollable Content */}
+      <div className="sections-container">
+        {!logoVisible && animationTriggered && (
+          <>
+            <HeroSection />
+            <Tagline />
+          </>
+        )}
+      </div>
+    </main>
   );
 }
 
