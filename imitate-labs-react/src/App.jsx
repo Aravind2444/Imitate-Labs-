@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import HeroSection from "./sections/HeroSection";
 import Tagline from "./sections/Tagline";
+import BlobCursor from "./components/BlobCursor"; 
 
 function App() {
   const [animationTriggered, setAnimationTriggered] = useState(false);
@@ -46,12 +47,18 @@ function App() {
         </div>
       </div>
 
-      {/* Scrollable Content */}
-      <div className="sections-container">
+      
+
+      {/* Content Wrapper */}
+      <div className="content-wrapper">
         {!logoVisible && animationTriggered && (
           <>
-            <HeroSection />
-            <Tagline />
+            <div className="hero-wrapper">
+              <HeroSection />
+            </div>
+            <div className="tagline-wrapper">
+              <Tagline />
+            </div>
           </>
         )}
       </div>

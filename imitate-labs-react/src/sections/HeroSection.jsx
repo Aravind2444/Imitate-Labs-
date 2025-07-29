@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import SplitText from "../components/SplitText";
 import LightRays from "../components/LightRays";
 import Logo from "../assets/Logo.svg";
+import BlobCursor from "../components/BlobCursor";
 
 const HeroSection = () => {
   const [startAnimation, setStartAnimation] = useState(false);
@@ -20,7 +21,10 @@ const HeroSection = () => {
   };
 
   return (
+    
+    
     <section className="hero-section">
+      
       {/* Background Elements */}
       <div className="hero-background">
         {/* Add your background elements/shapes here */}

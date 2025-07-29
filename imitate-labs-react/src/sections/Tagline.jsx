@@ -23,10 +23,10 @@ const Tagline = () => {
           duration={1.8}
           ease="power2.inOut"
           splitType="chars"
-          from={{ opacity: 0, x: 100 }} // Start from right
+          from={{ opacity: 0, x:100  }} // Start from right
           to={{ opacity: 1, x: 0 }} // Move to original position
           threshold={0.1}
-          textAlign="left"
+          textAlign="none"
         />
       )}
     </div>
@@ -34,3 +34,5 @@ const Tagline = () => {
 };
 
 export default Tagline;
+
+
