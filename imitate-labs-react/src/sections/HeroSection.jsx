@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import SplitText from "../components/SplitText";
 import LightRays from "../components/LightRays";
 import Logo from "../assets/Logo.svg";
-import BlobCursor from "../components/BlobCursor";
+
 
 const HeroSection = () => {
   const [startAnimation, setStartAnimation] = useState(false);

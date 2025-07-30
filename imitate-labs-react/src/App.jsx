@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import HeroSection from "./sections/HeroSection";
 import Tagline from "./sections/Tagline";
-import BlobCursor from "./components/BlobCursor"; 
+import Features from "./sections/Features";
+
 
 function App() {
   const [animationTriggered, setAnimationTriggered] = useState(false);
@@ -58,6 +59,9 @@ function App() {
             </div>
             <div className="tagline-wrapper">
               <Tagline />
+            </div>
+            <div className="tagline-wrapper">
+              <Features />
             </div>
           </>
         )}
