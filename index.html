@@ -46,6 +46,92 @@
             <img class="logo" src="./assets/images/logo-color.png" alt="">
         </section>
     </main>
+    <section>
+        <h2>About us</h2>
+        <p>
+            Imitate Labs is an AI-powered editing tool that replicates your style or any YouTuber’s. <br>
+            Just drop your footage or type a channel name. It edits, titles, thumbnails, and writes descriptions
+            like they would. <br>
+            The ultimate shortcut for creators. <br>
+            Fast, personalized, and insanely smart. <br>
+        </p>
+    </section>
+    <script>
+const child = document.querySelector('.logo-circle');
+
+const gradientStops = [
+    '#DA6A78',
+    '#B96091',
+    '#9855AA',
+    '#774BC3',
+    '#5640DC'
+];
+const whiteStops = Array(gradientStops.length).fill('#fff'); // White for fade-out
+const baseAngle = 120; // Original gradient angle
+let activeAngle = baseAngle; // Will switch for opposite direction
+
+let animationFrame;
+let isHovering = false;
+let activeStops = gradientStops; // Default to colored stops
+
+function animateGradient() {
+    let progress = 0;
+    const duration = 500; // total animation time in ms
+    const maxPct = 90;     // how much of the circle the total gradient spans
+
+    function step(tsStart) {
+        const start = tsStart || performance.now();
+        return function animate(ts) {
+            progress = Math.min(1, (ts - start) / duration);
+
+            // Move each color stop in based on progress
+            const stops = activeStops.map((color, i) => {
+                // stagger each stop a bit
+                const base = (i / (activeStops.length - 1));
+                // Mix progress with stagger factor
+                let pct = base * progress + (1 - progress) * 0;
+                pct = Math.min(1, progress * (i + 1) / activeStops.length);
+                return `${color} ${Math.round(pct * maxPct)}%`;
+            });
+            child.style.background = `linear-gradient(${activeAngle}deg, ${stops.join(', ')})`;
+
+            if (progress < 1 && (
+                (isHovering && activeStops === gradientStops) ||
+                (!isHovering && activeStops === whiteStops)
+            )) {
+                animationFrame = requestAnimationFrame(animate);
+            }
+        }
+    }
+
+    animationFrame = requestAnimationFrame(step());
+}
+
+// On mouse enter: animate to colored gradient (normal direction)
+document.querySelector('.logo-box').addEventListener('mouseenter', () => {
+    isHovering = true;
+    cancelAnimationFrame(animationFrame);
+    activeStops = gradientStops;
+    activeAngle = baseAngle; // Normal angle
+    animateGradient();
+});
+
+// On mouse leave: animate to white (opposite direction)
+document.querySelector('.logo-box').addEventListener('mouseleave', () => {
+    isHovering = false;
+    cancelAnimationFrame(animationFrame);
+    activeStops = whiteStops;
+    activeAngle = (baseAngle + 180) % 360; // Opposite angle
+    animateGradient();
+    setTimeout(() => {
+        if (!isHovering) { // Only reset if mouse hasn't come back
+            child.style.background = '#fff';
+        }
+    }, 500); // Match this to your animation duration
+});
+</script>
+
+
 </body>
 
 </html>
