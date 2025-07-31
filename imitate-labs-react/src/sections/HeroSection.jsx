@@ -69,7 +69,7 @@ const HeroSection = () => {
                 className="hero-title"
                 delay={400}
                 duration={1}
-                ease="elastic.out(1,0.3)"
+                ease="power.out"
                 splitType="chars"
                 from={{ opacity: 0, x: 30 }}
                 to={{ opacity: 1, x: 0 }}
@@ -82,7 +82,7 @@ const HeroSection = () => {
                 className="hero-title2"
                 delay={400}
                 duration={1}
-                ease="elastic.out(1,0.3)"
+                ease="power.out"
                 splitType="chars"
                 from={{ opacity: 0, x: 30 }}
                 to={{ opacity: 1, x: 0 }}
