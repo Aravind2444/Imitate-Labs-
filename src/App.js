@@ -4,9 +4,6 @@ import LogoAnimation from './components/LogoAnimation';
 import BlurText from './components/BlurText';
 import HeroSection from './components/HeroSection';
 import Navigation from './components/Navigation';
-import AboutPage from './components/AboutPage';
-import FeaturesPage from './components/FeaturesPage';
-import ContactPage from './components/ContactPage';
 import DarkVeilCanvas from './components/DarkVeilCanvas';
 import GlobalSpotlight from './components/GlobalSpotlight';
 import './styles/App.css';
@@ -20,7 +17,6 @@ const AppContainer = styled.div`
 
 function App() {
   const [currentStage, setCurrentStage] = useState('logo'); // logo, tagline, hero
-  const [activePage, setActivePage] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -50,7 +46,7 @@ function App() {
   }, []);
 
   const showPage = (pageId) => {
-    // Scroll to the appropriate section instead of showing overlay
+    // Scroll to the appropriate section within the hero
     const element = document.getElementById(`${pageId}-section`);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -58,11 +54,11 @@ function App() {
   };
 
   const showContactModal = (pageId) => {
-    setActivePage(pageId);
-  };
-
-  const closePage = () => {
-    setActivePage(null);
+    // Scroll to contact section within the hero
+    const element = document.getElementById(`${pageId}-section`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -77,44 +73,17 @@ function App() {
         <BlurText text="Empowering seamless video edits in the style you love" />
       )}
 
-      {/* Hero Stage and Scrollable Content */}
+      {/* Hero Stage with All Content */}
       {currentStage === 'hero' && (
-        <>
-          {/* Fixed Hero Section */}
-          <div style={{ position: 'relative', height: '100vh' }}>
-            <DarkVeilCanvas />
-            <HeroSection />
-            <Navigation onNavigate={showPage} onContactClick={showContactModal} />
-            <GlobalSpotlight 
-              mousePosition={mousePosition} 
-              isVisible={true} 
-            />
-          </div>
-
-          {/* Scrollable Sections Below */}
-          <div id="about-section">
-            <AboutPage 
-              isActive={true} 
-              onClose={closePage}
-              isScrollable={true}
-            />
-          </div>
-          
-          <div id="features-section">
-            <FeaturesPage 
-              isActive={true} 
-              onClose={closePage}
-              mousePosition={mousePosition}
-              isScrollable={true}
-            />
-          </div>
-
-          {/* Contact Modal Overlay */}
-          <ContactPage 
-            isActive={activePage === 'contact'} 
-            onClose={closePage} 
+        <div style={{ position: 'relative', height: '100vh' }}>
+          <DarkVeilCanvas />
+          <HeroSection mousePosition={mousePosition} />
+          <Navigation onNavigate={showPage} onContactClick={showContactModal} />
+          <GlobalSpotlight 
+            mousePosition={mousePosition} 
+            isVisible={true} 
           />
-        </>
+        </div>
       )}
     </AppContainer>
   );
