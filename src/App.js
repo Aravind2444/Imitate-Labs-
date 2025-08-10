@@ -4,8 +4,8 @@ import LogoAnimation from './components/LogoAnimation';
 import BlurText from './components/BlurText';
 import HeroSection from './components/HeroSection';
 import Navigation from './components/Navigation';
-import ScrollableAbout from './components/ScrollableAbout';
-import ScrollableFeatures from './components/ScrollableFeatures';
+import AboutPage from './components/AboutPage';
+import FeaturesPage from './components/FeaturesPage';
 import ContactPage from './components/ContactPage';
 import DarkVeilCanvas from './components/DarkVeilCanvas';
 import GlobalSpotlight from './components/GlobalSpotlight';
@@ -93,11 +93,20 @@ function App() {
 
           {/* Scrollable Sections Below */}
           <div id="about-section">
-            <ScrollableAbout />
+            <AboutPage 
+              isActive={true} 
+              onClose={closePage}
+              isScrollable={true}
+            />
           </div>
           
           <div id="features-section">
-            <ScrollableFeatures mousePosition={mousePosition} />
+            <FeaturesPage 
+              isActive={true} 
+              onClose={closePage}
+              mousePosition={mousePosition}
+              isScrollable={true}
+            />
           </div>
 
           {/* Contact Modal Overlay */}

@@ -10,9 +10,9 @@ const PageSection = styled.div`
   background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 0, 40, 0.9));
   backdrop-filter: blur(10px);
   z-index: ${props => props.isScrollable ? 1 : 10};
-  opacity: ${props => props.isScrollable ? 1 : (props.isActive ? 1 : 0)};
-  visibility: ${props => props.isScrollable ? 'visible' : (props.isActive ? 'visible' : 'hidden')};
-  transform: ${props => props.isScrollable ? 'none' : `translateX(${props.isActive ? '0' : '100%'})`};
+  opacity: ${props => props.isActive ? 1 : 0};
+  visibility: ${props => props.isActive ? 'visible' : 'hidden'};
+  transform: translateX(${props => props.isActive ? '0' : '100%'});
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-y: auto;
   padding: 120px 40px 40px 40px;
@@ -23,8 +23,8 @@ const PageContent = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   color: white;
-  opacity: ${props => props.isScrollable ? 1 : (props.isActive ? 1 : 0)};
-  transform: ${props => props.isScrollable ? 'none' : `translateX(${props.isActive ? '0' : '50px'})`};
+  opacity: ${props => props.isActive ? 1 : 0};
+  transform: translateX(${props => props.isActive ? '0' : '50px'});
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
 `;
 
@@ -85,7 +85,7 @@ const AboutPage = ({ isActive, onClose, isScrollable = false }) => {
       <CloseButton isActive={isActive} isScrollable={isScrollable} onClick={onClose}>
         &times;
       </CloseButton>
-      <PageContent isActive={isActive} isScrollable={isScrollable}>
+      <PageContent isActive={isActive}>
         <PageTitle>About Imitate Labs</PageTitle>
         <PageText>
           <p>
