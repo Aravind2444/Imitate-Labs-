@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import FeatureCard from './FeatureCard';
+import AboutCard from './AboutCard';
 
 const showDarkVeilContent = keyframes`
   0% {
@@ -91,6 +92,15 @@ const AboutContent = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   color: white;
+`;
+
+const AboutGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+  padding: 20px;
+  position: relative;
 `;
 
 const SectionTitle = styled.h1`
@@ -283,6 +293,39 @@ const features = [
   }
 ];
 
+const aboutCards = [
+  {
+    title: "🤖 AI-Powered Platform",
+    brief: "Advanced artificial intelligence that understands your creative vision",
+    details: "Our proprietary AI technology analyzes thousands of editing styles and learns to replicate any creator's unique approach. It's not just automation - it's intelligent assistance that understands context, mood, and artistic intent to deliver professional-quality results."
+  },
+  {
+    title: "🎬 Style Learning",
+    brief: "Learn and replicate any editing style with precision",
+    details: "Simply describe the style you want - 'Edit like Emma Chamberlain with casual pacing and jump cuts' - and our AI will analyze the requirements, understand the aesthetic, and deliver a fully edited video that matches that exact style perfectly."
+  },
+  {
+    title: "⚡ Instant Results",
+    brief: "From raw footage to polished video in minutes",
+    details: "Upload your footage, select your preferred style, and let our AI handle everything - cutting, color correction, audio enhancement, transitions, and even thumbnail generation. What used to take hours now happens in minutes."
+  },
+  {
+    title: "🎯 No Skills Required",
+    brief: "Professional editing without the learning curve",
+    details: "You don't need to learn complex editing software or techniques. Our platform makes professional-quality video editing accessible to everyone, regardless of their technical background or experience level."
+  },
+  {
+    title: "☁️ Cloud-Based",
+    brief: "Edit anywhere, anytime with powerful cloud processing",
+    details: "Our cloud infrastructure provides unlimited processing power, so you can edit videos of any length or complexity without worrying about your device's capabilities. Access your projects from anywhere with an internet connection."
+  },
+  {
+    title: "🚀 Smart Automation",
+    brief: "Intelligent agent that acts on your behalf",
+    details: "Unlike traditional platforms that give you tools, Imitate Labs is an AI agent that acts on your behalf. It understands your preferences, learns your style, and delivers exactly what you envision without manual intervention."
+  }
+];
+
 const HeroSection = ({ mousePosition }) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -320,10 +363,23 @@ const HeroSection = ({ mousePosition }) => {
           <AboutContent>
             <SectionTitle>Edit Smarter. Create Faster.</SectionTitle>
             <SectionText>
-              <p>
-                Our AI-powered video editing platform makes professional-quality editing available to everyone. Just upload your footage, pick your preferred style, and let our advanced AI handle the rest — cutting, enhancing, and styling your video to perfection. No editing skills required, no complicated tools — just your story, elevated.
+              <p style={{ textAlign: 'center' }}>
+                Our AI-powered video editing platform makes professional-quality editing available to everyone. Discover what makes Imitate Labs different.
               </p>
             </SectionText>
+            
+            <AboutGrid>
+              {aboutCards.map((card, index) => (
+                <AboutCard
+                  key={index}
+                  title={card.title}
+                  brief={card.brief}
+                  details={card.details}
+                  index={index}
+                  mousePosition={mousePosition}
+                />
+              ))}
+            </AboutGrid>
           </AboutContent>
         </AboutSection>
 
