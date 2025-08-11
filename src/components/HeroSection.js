@@ -159,14 +159,15 @@ const ContactSection = styled.section`
   width: 100%;
   min-height: 100vh;
   background: linear-gradient(135deg, 
-    rgba(20, 0, 40, 0.85) 0%, 
-    rgba(40, 0, 80, 0.8) 50%, 
-    rgba(60, 0, 120, 0.85) 100%);
-  backdrop-filter: blur(20px) saturate(1.8) brightness(1.1);
+    rgba(0, 0, 0, 0.95) 0%, 
+    rgba(10, 0, 20, 0.9) 50%, 
+    rgba(20, 0, 40, 0.95) 100%);
+  backdrop-filter: blur(25px) saturate(1.5) brightness(0.8);
   padding: 120px 40px 40px 40px;
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 
   &::before {
     content: '';
@@ -176,12 +177,30 @@ const ContactSection = styled.section`
     right: 0;
     bottom: 0;
     background: radial-gradient(
-      circle at 20% 50%, 
-      rgba(132, 0, 255, 0.1) 0%, 
-      transparent 50%
+      circle at 30% 40%, 
+      rgba(132, 0, 255, 0.05) 0%, 
+      transparent 60%
     );
     pointer-events: none;
     z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.02) 0%,
+      transparent 20%,
+      transparent 80%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
   }
 `;
 
@@ -190,7 +209,7 @@ const ContactContent = styled.div`
   margin: 0 auto;
   color: white;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 `;
 
 const ContactForm = styled.form`
@@ -415,15 +434,40 @@ const SocialMediaSection = styled.div`
   margin-top: 60px;
   padding: 40px;
   background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.08) 0%, 
-    rgba(132, 0, 255, 0.05) 50%, 
-    rgba(255, 255, 255, 0.06) 100%);
+    rgba(132, 0, 255, 0.08) 0%, 
+    rgba(255, 255, 255, 0.04) 50%, 
+    rgba(132, 0, 255, 0.06) 100%);
   border-radius: 24px;
-  backdrop-filter: blur(15px) saturate(1.5);
+  backdrop-filter: blur(15px) saturate(1.2) brightness(1.02);
   border: 1px solid rgba(132, 0, 255, 0.2);
   box-shadow: 
-    0 8px 32px rgba(132, 0, 255, 0.1),
+    0 4px 20px rgba(132, 0, 255, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.05),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+
+  /* Subtle shimmer animation */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(132, 0, 255, 0.08),
+      transparent
+    );
+    transition: left 0.5s;
+    z-index: 1;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
 `;
 
 const SocialTitle = styled.h3`
@@ -432,33 +476,45 @@ const SocialTitle = styled.h3`
   color: rgba(255, 255, 255, 0.95);
   margin-bottom: 20px;
   text-align: center;
+  position: relative;
+  z-index: 2;
 `;
 
 const SocialGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 15px;
+  position: relative;
+  z-index: 2;
 `;
 
 const SocialItem = styled.div`
   padding: 15px 20px;
   background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.05) 0%, 
-    rgba(132, 0, 255, 0.03) 100%);
+    rgba(132, 0, 255, 0.05) 0%, 
+    rgba(255, 255, 255, 0.02) 50%, 
+    rgba(132, 0, 255, 0.04) 100%);
   border: 1px solid rgba(132, 0, 255, 0.15);
   border-radius: 12px;
   color: rgba(255, 255, 255, 0.9);
   text-align: center;
   font-weight: 500;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px) saturate(1.1);
   transition: all 0.3s ease;
+  box-shadow: 
+    0 2px 8px rgba(132, 0, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
   &:hover {
     background: linear-gradient(135deg, 
-      rgba(255, 255, 255, 0.08) 0%, 
-      rgba(132, 0, 255, 0.05) 100%);
+      rgba(132, 0, 255, 0.08) 0%, 
+      rgba(255, 255, 255, 0.04) 50%, 
+      rgba(132, 0, 255, 0.06) 100%);
     border-color: rgba(132, 0, 255, 0.25);
     transform: translateY(-2px);
+    box-shadow: 
+      0 4px 12px rgba(132, 0, 255, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
   }
 `;
 

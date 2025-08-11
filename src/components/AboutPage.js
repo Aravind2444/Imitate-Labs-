@@ -41,39 +41,12 @@ const GlassNav = styled.nav`
   opacity: 0;
   animation: ${showNavigation} 1s ease-out forwards;
   animation-delay: 0.5s;
-  background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.08) 0%, 
-    rgba(255, 255, 255, 0.03) 50%, 
-    rgba(255, 255, 255, 0.05) 100%);
-  backdrop-filter: blur(25px) saturate(1.8) brightness(1.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.01);
+  backdrop-filter: blur(4px) saturate(1.1) brightness(1.02);
+  border: 1px solid rgba(255, 255, 255, 0.03);
   box-shadow: 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
-    inset 0 -1px 0 0 rgba(255, 255, 255, 0.1),
-    0 8px 32px rgba(0, 0, 0, 0.1),
-    0 4px 16px rgba(255, 255, 255, 0.05);
-  
-  /* Enhanced glass effect with shimmer */
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.1),
-      transparent
-    );
-    border-radius: inherit;
-    transition: left 0.8s ease;
-  }
-
-  &:hover::before {
-    left: 100%;
-  }
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
+    0 2px 8px 0 rgba(0, 0, 0, 0.05);
 `;
 
 const NavContent = styled.div`
@@ -84,84 +57,43 @@ const NavContent = styled.div`
   justify-content: space-between;
   padding: 0 40px;
   border-radius: inherit;
-  position: relative;
-  z-index: 1;
 `;
 
 const NavBrand = styled.div`
-  color: rgba(255, 255, 255, 0.95);
+  color: white;
   font-family: Arial, sans-serif;
   font-size: 1.2rem;
   font-weight: 600;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(2px);
 `;
 
 const NavItems = styled.div`
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 60px;
 `;
 
 const NavItem = styled.button`
-  color: rgba(255, 255, 255, 0.9);
+  color: white;
   text-decoration: none;
   font-family: Arial, sans-serif;
   font-size: 0.9rem;
   font-weight: 500;
-  padding: 12px 20px;
-  border-radius: 25px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.08) 0%, 
-    rgba(255, 255, 255, 0.04) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.02);
   cursor: pointer;
-  backdrop-filter: blur(15px);
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    0 2px 8px rgba(0, 0, 0, 0.1);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.15),
-      transparent
-    );
-    transition: left 0.6s ease;
-    z-index: 0;
-  }
 
   &:hover {
-    color: rgba(255, 255, 255, 1);
-    background: linear-gradient(135deg, 
-      rgba(255, 255, 255, 0.15) 0%, 
-      rgba(255, 255, 255, 0.08) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    transform: translateY(-2px) scale(1.05);
-    backdrop-filter: blur(20px) saturate(1.5);
-    box-shadow: 
-      inset 0 1px 0 rgba(255, 255, 255, 0.2),
-      0 8px 25px rgba(0, 0, 0, 0.15),
-      0 4px 12px rgba(255, 255, 255, 0.1);
-
-    &::before {
-      left: 100%;
-    }
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transform: scale(1.05);
+    backdrop-filter: blur(3px);
   }
 
-  &:active {
-    transform: translateY(-1px) scale(1.02);
+  &:last-child {
+    margin-right: 50px;
   }
 `;
 
