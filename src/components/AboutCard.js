@@ -2,12 +2,20 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 const Card = styled.div`
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.02) 100%);
+  border-radius: 24px;
   padding: 30px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(132, 0, 255, 0.2);
-  transition: all 0.3s ease;
+  backdrop-filter: blur(20px) saturate(1.8) brightness(1.1);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8) brightness(1.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   opacity: 1;
   transform: translateX(0);
   position: relative;
@@ -18,6 +26,23 @@ const Card = styled.div`
   justify-content: space-between;
   cursor: pointer;
   
+  /* Fluid glass animation */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 70%);
+    transform: rotate(-45deg);
+    transition: all 0.6s ease;
+    opacity: 0;
+  }
+  
   /* Glow effect variables */
   --glow-x: 50%;
   --glow-y: 50%;
@@ -25,29 +50,50 @@ const Card = styled.div`
   --glow-radius: 300px;
 
   &:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(132, 0, 255, 0.4);
-    box-shadow: 0 8px 32px rgba(132, 0, 255, 0.2);
+    transform: translateY(-8px) scale(1.02);
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.08) 50%,
+      rgba(255, 255, 255, 0.04) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 
+      0 16px 64px rgba(132, 0, 255, 0.25),
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(25px) saturate(2) brightness(1.2);
+    -webkit-backdrop-filter: blur(25px) saturate(2) brightness(1.2);
+    
+    &::before {
+      opacity: 1;
+      animation: shimmer 2s ease-in-out infinite;
+    }
   }
 
-  /* Border glow effect */
+  @keyframes shimmer {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(-45deg); }
+    50% { transform: translateX(0%) translateY(0%) rotate(-45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(-45deg); }
+  }
+
+  /* Enhanced border glow effect */
   &::after {
     content: '';
     position: absolute;
     inset: 0;
     padding: 2px;
     background: radial-gradient(var(--glow-radius) circle at var(--glow-x) var(--glow-y),
-      rgba(132, 0, 255, calc(var(--glow-intensity) * 0.8)) 0%,
-      rgba(132, 0, 255, calc(var(--glow-intensity) * 0.4)) 30%,
-      transparent 60%);
+      rgba(132, 0, 255, calc(var(--glow-intensity) * 0.6)) 0%,
+      rgba(147, 51, 234, calc(var(--glow-intensity) * 0.4)) 30%,
+      rgba(168, 85, 247, calc(var(--glow-intensity) * 0.2)) 60%,
+      transparent 80%);
     border-radius: inherit;
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: subtract;
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     pointer-events: none;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s ease;
     z-index: 1;
   }
 `;
@@ -76,8 +122,13 @@ const AboutDetails = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.95);
-  border-radius: 20px;
+  background: linear-gradient(135deg, 
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(20, 0, 40, 0.95) 50%,
+    rgba(40, 0, 80, 0.9) 100%);
+  backdrop-filter: blur(30px) saturate(1.5);
+  -webkit-backdrop-filter: blur(30px) saturate(1.5);
+  border-radius: 24px;
   padding: 30px;
   display: flex;
   flex-direction: column;
@@ -85,8 +136,12 @@ const AboutDetails = styled.div`
   opacity: ${props => props.isHovered ? 1 : 0};
   visibility: ${props => props.isHovered ? 'visible' : 'hidden'};
   transform: ${props => props.isHovered ? 'scale(1)' : 'scale(0.95)'};
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   z-index: 3;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
 `;
 
 const DetailTitle = styled.h4`

@@ -2,15 +2,17 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 const Card = styled.div`
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
+  background: linear-gradient(135deg, 
+    rgba(132, 0, 255, 0.08) 0%, 
+    rgba(255, 255, 255, 0.04) 50%, 
+    rgba(132, 0, 255, 0.06) 100%);
+  border-radius: 24px;
   padding: 30px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px) saturate(1.2) brightness(1.02);
   border: 1px solid rgba(132, 0, 255, 0.2);
-  transition: all 0.3s ease;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: ${props => props.isActive ? 1 : 0};
   transform: translateX(${props => props.isActive ? '0' : '30px'});
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   transition-delay: ${props => props.isActive ? `${0.4 + props.index * 0.1}s` : '0s'};
   position: relative;
   overflow: hidden;
@@ -19,6 +21,10 @@ const Card = styled.div`
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
+  box-shadow: 
+    0 4px 20px rgba(132, 0, 255, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   
   /* Glow effect variables */
   --glow-x: 50%;
@@ -26,22 +32,51 @@ const Card = styled.div`
   --glow-intensity: 0;
   --glow-radius: 300px;
 
-  &:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(132, 0, 255, 0.4);
-    box-shadow: 0 8px 32px rgba(132, 0, 255, 0.2);
+  /* Subtle shimmer animation */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(132, 0, 255, 0.08),
+      transparent
+    );
+    transition: left 0.5s;
+    z-index: 1;
   }
 
-  /* Border glow effect */
+  &:hover {
+    transform: translateY(-5px) scale(1.01);
+    background: linear-gradient(135deg, 
+      rgba(132, 0, 255, 0.12) 0%, 
+      rgba(255, 255, 255, 0.06) 50%, 
+      rgba(132, 0, 255, 0.1) 100%);
+    border-color: rgba(132, 0, 255, 0.3);
+    box-shadow: 
+      0 12px 40px rgba(132, 0, 255, 0.15),
+      0 4px 16px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(18px) saturate(1.4) brightness(1.05);
+
+    &::before {
+      left: 100%;
+    }
+  }
+
+  /* Subtle border glow effect */
   &::after {
     content: '';
     position: absolute;
     inset: 0;
     padding: 2px;
     background: radial-gradient(var(--glow-radius) circle at var(--glow-x) var(--glow-y),
-      rgba(132, 0, 255, calc(var(--glow-intensity) * 0.8)) 0%,
-      rgba(132, 0, 255, calc(var(--glow-intensity) * 0.4)) 30%,
+      rgba(132, 0, 255, calc(var(--glow-intensity) * 0.6)) 0%,
+      rgba(132, 0, 255, calc(var(--glow-intensity) * 0.3)) 30%,
       transparent 60%);
     border-radius: inherit;
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -50,7 +85,16 @@ const Card = styled.div`
     -webkit-mask-composite: xor;
     pointer-events: none;
     transition: opacity 0.3s ease;
-    z-index: 1;
+    z-index: 2;
+  }
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
   }
 `;
 

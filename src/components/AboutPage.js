@@ -1,5 +1,16 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const showNavigation = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 const PageSection = styled.div`
   position: ${props => props.isScrollable ? 'relative' : 'fixed'};
@@ -19,6 +30,141 @@ const PageSection = styled.div`
   box-sizing: border-box;
 `;
 
+const GlassNav = styled.nav`
+  position: absolute;
+  top: 30px;
+  left: 5%;
+  width: 90vw;
+  height: 60px;
+  border-radius: 30px;
+  z-index: 6;
+  opacity: 0;
+  animation: ${showNavigation} 1s ease-out forwards;
+  animation-delay: 0.5s;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.08) 0%, 
+    rgba(255, 255, 255, 0.03) 50%, 
+    rgba(255, 255, 255, 0.05) 100%);
+  backdrop-filter: blur(25px) saturate(1.8) brightness(1.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 0 rgba(255, 255, 255, 0.1),
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 4px 16px rgba(255, 255, 255, 0.05);
+  
+  /* Enhanced glass effect with shimmer */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    border-radius: inherit;
+    transition: left 0.8s ease;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
+`;
+
+const NavContent = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  border-radius: inherit;
+  position: relative;
+  z-index: 1;
+`;
+
+const NavBrand = styled.div`
+  color: rgba(255, 255, 255, 0.95);
+  font-family: Arial, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+`;
+
+const NavItems = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 40px;
+`;
+
+const NavItem = styled.button`
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: 25px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.08) 0%, 
+    rgba(255, 255, 255, 0.04) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  backdrop-filter: blur(15px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.15),
+      transparent
+    );
+    transition: left 0.6s ease;
+    z-index: 0;
+  }
+
+  &:hover {
+    color: rgba(255, 255, 255, 1);
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.15) 0%, 
+      rgba(255, 255, 255, 0.08) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px) scale(1.05);
+    backdrop-filter: blur(20px) saturate(1.5);
+    box-shadow: 
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      0 8px 25px rgba(0, 0, 0, 0.15),
+      0 4px 12px rgba(255, 255, 255, 0.1);
+
+    &::before {
+      left: 100%;
+    }
+  }
+
+  &:active {
+    transform: translateY(-1px) scale(1.02);
+  }
+`;
+
 const PageContent = styled.div`
   max-width: 1200px;
   margin: 0 auto;
@@ -26,6 +172,7 @@ const PageContent = styled.div`
   opacity: ${props => props.isActive ? 1 : 0};
   transform: translateX(${props => props.isActive ? '0' : '50px'});
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+  margin-top: 40px;
 `;
 
 const CloseButton = styled.button`
@@ -79,12 +226,20 @@ const PageText = styled.div`
   }
 `;
 
-const AboutPage = ({ isActive, onClose, isScrollable = false }) => {
+const AboutPage = ({ isActive, onClose, onNavigate, onContactClick, isScrollable = false }) => {
   return (
     <PageSection isActive={isActive} isScrollable={isScrollable}>
-      <CloseButton isActive={isActive} isScrollable={isScrollable} onClick={onClose}>
-        &times;
-      </CloseButton>
+      <GlassNav>
+        <NavContent>
+          <NavBrand>Imitate Labs</NavBrand>
+          <NavItems>
+            <NavItem onClick={() => onNavigate('home')}>Home</NavItem>
+            <NavItem onClick={() => onNavigate('features')}>Features</NavItem>
+            <NavItem onClick={() => onContactClick('contact')}>Contact</NavItem>
+            <NavItem onClick={onClose}>Close</NavItem>
+          </NavItems>
+        </NavContent>
+      </GlassNav>
       <PageContent isActive={isActive}>
         <PageTitle>About Imitate Labs</PageTitle>
         <PageText>
