@@ -410,6 +410,58 @@ const SubmitButton = styled.button`
   }
 `;
 
+// Social Media Section
+const SocialMediaSection = styled.div`
+  margin-top: 60px;
+  padding: 40px;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.08) 0%, 
+    rgba(132, 0, 255, 0.05) 50%, 
+    rgba(255, 255, 255, 0.06) 100%);
+  border-radius: 24px;
+  backdrop-filter: blur(15px) saturate(1.5);
+  border: 1px solid rgba(132, 0, 255, 0.2);
+  box-shadow: 
+    0 8px 32px rgba(132, 0, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+`;
+
+const SocialTitle = styled.h3`
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 20px;
+  text-align: center;
+`;
+
+const SocialGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+`;
+
+const SocialItem = styled.div`
+  padding: 15px 20px;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.05) 0%, 
+    rgba(132, 0, 255, 0.03) 100%);
+  border: 1px solid rgba(132, 0, 255, 0.15);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.08) 0%, 
+      rgba(132, 0, 255, 0.05) 100%);
+    border-color: rgba(132, 0, 255, 0.25);
+    transform: translateY(-2px);
+  }
+`;
+
 const features = [
   {
     title: "🌟 Instant AI Editing",
@@ -557,52 +609,17 @@ const HeroSection = ({ mousePosition }) => {
           <ContactContent>
             <SectionTitle>Contact Us</SectionTitle>
             
-            <ContactForm onSubmit={handleSubmit}>
-              <FormField>
-                <FloatingInput
-                  name="name"
-                  type="text"
-                  placeholder="Your Name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
-              </FormField>
-              
-              <FormField>
-                <FloatingInput
-                  name="email"
-                  type="email"
-                  placeholder="Your Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </FormField>
-              
-              <FormField>
-                <FloatingInput
-                  name="subject"
-                  type="text"
-                  placeholder="Subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                />
-              </FormField>
-              
-              <FormField>
-                <FloatingTextarea
-                  name="message"
-                  placeholder="Your Message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                />
-              </FormField>
-              
-              <SubmitButton type="submit">Send Message</SubmitButton>
-            </ContactForm>
+            <SocialMediaSection>
+              <SocialTitle>Follow Us On</SocialTitle>
+              <SocialGrid>
+                <SocialItem>Discord</SocialItem>
+                <SocialItem>Instagram</SocialItem>
+                <SocialItem>Twitter/X</SocialItem>
+                <SocialItem>YouTube</SocialItem>
+                <SocialItem>TikTok</SocialItem>
+                <SocialItem>LinkedIn</SocialItem>
+              </SocialGrid>
+            </SocialMediaSection>
           </ContactContent>
         </ContactSection>
       </ContentWrapper>
