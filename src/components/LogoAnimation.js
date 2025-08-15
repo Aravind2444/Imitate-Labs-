@@ -44,8 +44,8 @@ const Overlay = styled.div`
   opacity: 0;
   pointer-events: none;
   z-index: 2;
-  animation: ${fadeToBlack} 6s ease-in-out forwards;
-  animation-delay: 1s;
+  animation: ${fadeToBlack} 4.5s ease-in-out forwards;
+  animation-delay: 0.8s;
 `;
 
 const Container = styled.div`
@@ -61,9 +61,9 @@ const Container = styled.div`
 const CenteredImage = styled.img`
   width: 300px;
   height: auto;
-  transition: transform 3s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: ${autoScale} 6s ease-in-out forwards;
-  animation-delay: 1s;
+  transition: transform 2.5s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: ${autoScale} 4.5s ease-in-out forwards;
+  animation-delay: 0.8s;
 `;
 
 const LogoAnimation = () => {

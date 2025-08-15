@@ -21,14 +21,14 @@ function App() {
 
   useEffect(() => {
     // Stage progression timing
-    const logoTimer = setTimeout(() => setCurrentStage('tagline'), 6000);
+    const logoTimer = setTimeout(() => setCurrentStage('tagline'), 5300);
     const taglineTimer = setTimeout(() => {
       setCurrentStage('hero');
       // Enable scrolling after hero appears
       setTimeout(() => {
         document.body.style.overflow = 'auto';
       }, 2000);
-    }, 10000);
+    }, 9300);
 
     return () => {
       clearTimeout(logoTimer);
