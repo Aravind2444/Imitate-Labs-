@@ -1,7 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
-const Card = styled.div`
+const Card = styled.div.attrs(props => ({
+  style: {
+    opacity: props.$isActive ? 1 : 0,
+    transform: props.$isActive ? 'translateX(0)' : 'translateX(30px)',
+    transitionDelay: props.$isActive ? `${0.4 + props.$index * 0.1}s` : '0s'
+  }
+}))`
   background: linear-gradient(135deg, 
     rgba(132, 0, 255, 0.08) 0%, 
     rgba(255, 255, 255, 0.04) 50%, 
@@ -11,9 +17,6 @@ const Card = styled.div`
   backdrop-filter: blur(15px) saturate(1.2) brightness(1.02);
   border: 1px solid rgba(132, 0, 255, 0.2);
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: ${props => props.isActive ? 1 : 0};
-  transform: translateX(${props => props.isActive ? '0' : '30px'});
-  transition-delay: ${props => props.isActive ? `${0.4 + props.index * 0.1}s` : '0s'};
   position: relative;
   overflow: hidden;
   min-height: 200px;
@@ -178,6 +181,15 @@ const FeatureCard = ({ title, description, index, isActive, mousePosition }) => 
     setParticles([]);
     if (cardRef.current) {
       cardRef.current.style.setProperty('--glow-intensity', '0');
+      // Reset transform with transition
+      cardRef.current.style.transition = 'transform 0.5s ease-out';
+      cardRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translate(0px, 0px) scale(1)';
+      // Reset transition after animation
+      setTimeout(() => {
+        if (cardRef.current) {
+          cardRef.current.style.transition = '';
+        }
+      }, 500);
     }
   };
 
@@ -190,15 +202,29 @@ const FeatureCard = ({ title, description, index, isActive, mousePosition }) => 
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
     
-    // Tilt effect
-    const rotateX = ((y - centerY) / centerY) * -10;
-    const rotateY = ((x - centerX) / centerX) * 10;
+    // Calculate normalized position (-1 to 1)
+    const normalizedX = (x - centerX) / centerX;
+    const normalizedY = (y - centerY) / centerY;
     
-    // Magnetism effect
-    const magnetX = (x - centerX) * 0.05;
-    const magnetY = (y - centerY) * 0.05;
+    // Smooth out the tilt effect with damping
+    const tiltX = normalizedY * -10; // Inverted for natural tilt
+    const tiltY = normalizedX * 10;
     
-    cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate(${magnetX}px, ${magnetY}px) translateY(-5px)`;
+    // Magnetism effect with exponential falloff
+    const distance = Math.sqrt(Math.pow(normalizedX, 2) + Math.pow(normalizedY, 2));
+    const magnetStrength = Math.max(0, 1 - distance) * 15; // Stronger at center
+    const magnetX = normalizedX * magnetStrength;
+    const magnetY = normalizedY * magnetStrength;
+    
+    // Apply transforms in correct order with smooth transition
+    cardRef.current.style.transition = 'transform 0.1s ease-out';
+    cardRef.current.style.transform = `
+      perspective(1000px)
+      translate3d(${magnetX}px, ${magnetY}px, 0)
+      rotateX(${tiltX}deg)
+      rotateY(${tiltY}deg)
+      scale(1.01)
+    `;
     
     // Update glow
     updateCardGlow(e.clientX, e.clientY, 0.8);
@@ -256,8 +282,8 @@ const FeatureCard = ({ title, description, index, isActive, mousePosition }) => 
   return (
     <Card
       ref={cardRef}
-      isActive={isActive}
-      index={index}
+      $isActive={isActive}
+      $index={index}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}

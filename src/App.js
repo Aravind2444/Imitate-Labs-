@@ -8,10 +8,14 @@ import DarkVeilCanvas from './components/DarkVeilCanvas';
 import GlobalSpotlight from './components/GlobalSpotlight';
 import './styles/App.css';
 
-const AppContainer = styled.div`
+const AppContainer = styled.div.attrs(props => ({
+  // This filters out the isHeroStage prop from being passed to the DOM
+  style: {
+    overflow: props.$isHeroStage ? 'hidden' : 'auto'
+  }
+}))`
   background-color: black;
   min-height: 100vh;
-  overflow: ${props => props.isHeroStage ? 'hidden' : 'auto'};
   position: relative;
 `;
 
@@ -62,7 +66,7 @@ function App() {
   };
 
   return (
-    <AppContainer isHeroStage={currentStage !== 'hero'}>
+    <AppContainer $isHeroStage={currentStage !== 'hero'}>
       {/* Logo Animation Stage */}
       {currentStage === 'logo' && (
         <LogoAnimation />

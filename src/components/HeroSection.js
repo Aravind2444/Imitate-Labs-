@@ -78,6 +78,111 @@ const Logo = styled.img`
   animation-delay: 1s;
 `;
 
+const ComingSoonText = styled.h1`
+  font-size: 5rem;
+  font-weight: 700;
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+  opacity: 0;
+  animation: ${showDarkVeilContent} 1s ease-out forwards;
+  animation-delay: 0.5s;
+  text-shadow: 0 0 20px rgba(132, 0, 255, 0.5);
+`;
+
+const WaitlistCard = styled.div`
+  background: linear-gradient(135deg,
+    rgba(31, 10, 51, 0.35) 0%,
+    rgba(20, 0, 40, 0.25) 100%
+  );
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 50px;
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  opacity: 0;
+  animation: ${showDarkVeilContent} 1s ease-out forwards;
+  animation-delay: 0.8s;
+`;
+
+const WaitlistTitle = styled.h2`
+  font-size: 2rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 15px;
+  text-align: center;
+`;
+
+const WaitlistDescription = styled.p`
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1rem;
+  line-height: 1.6;
+`;
+
+const WaitlistForm = styled.form`
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+`;
+
+const WaitlistInput = styled.input`
+  flex: 1;
+  padding: 16px 24px;
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 1rem;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+
+  &:focus {
+    outline: none;
+    border-color: rgba(132, 0, 255, 0.6);
+    box-shadow: 0 0 20px rgba(132, 0, 255, 0.2);
+  }
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+`;
+
+const WaitlistButton = styled.button`
+  padding: 16px 32px;
+  background: white;
+  border: none;
+  border-radius: 12px;
+  color: #000;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(132, 0, 255, 0.3);
+    background: linear-gradient(135deg,
+      rgba(132, 0, 255, 0.9) 0%,
+      rgba(132, 0, 255, 0.7) 100%
+    );
+  }
+`;
+
+const SocialLinksContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+`;
+
 // About Section
 const AboutSection = styled.section`
   width: 100%;
@@ -481,40 +586,49 @@ const SocialTitle = styled.h3`
 `;
 
 const SocialGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
   position: relative;
   z-index: 2;
+  margin: 0 auto;
+  flex-wrap: nowrap;
+  
+  @media (max-width: 640px) {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
 `;
 
-const SocialItem = styled.div`
-  padding: 15px 20px;
-  background: linear-gradient(135deg, 
-    rgba(132, 0, 255, 0.05) 0%, 
-    rgba(255, 255, 255, 0.02) 50%, 
-    rgba(132, 0, 255, 0.04) 100%);
-  border: 1px solid rgba(132, 0, 255, 0.15);
-  border-radius: 12px;
+const SocialItem = styled.a`
+  width: 100px;
+  height: 100px;
+  background: rgba(31, 10, 51, 0.8);
+  border-radius: 16px;
   color: rgba(255, 255, 255, 0.9);
-  text-align: center;
-  font-weight: 500;
-  backdrop-filter: blur(10px) saturate(1.1);
-  transition: all 0.3s ease;
-  box-shadow: 
-    0 2px 8px rgba(132, 0, 255, 0.05),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+
+  img {
+    width: 40px;
+    height: 40px;
+    transition: all 0.3s ease;
+    filter: brightness(0) invert(1);
+  }
 
   &:hover {
-    background: linear-gradient(135deg, 
-      rgba(132, 0, 255, 0.08) 0%, 
-      rgba(255, 255, 255, 0.04) 50%, 
-      rgba(132, 0, 255, 0.06) 100%);
-    border-color: rgba(132, 0, 255, 0.25);
+    background: rgba(41, 15, 66, 0.9);
     transform: translateY(-2px);
-    box-shadow: 
-      0 4px 12px rgba(132, 0, 255, 0.08),
-      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 20px rgba(132, 0, 255, 0.2);
+
+    img {
+      transform: scale(1.1);
+    }
   }
 `;
 
@@ -579,6 +693,16 @@ const aboutCards = [
 ];
 
 const HeroSection = ({ mousePosition }) => {
+  const [email, setEmail] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  
+  const handleWaitlistSubmit = (e) => {
+    e.preventDefault();
+    // Add your waitlist submission logic here
+    setIsSubmitted(true);
+    console.log('Waitlist submission:', email);
+  };
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -603,11 +727,40 @@ const HeroSection = ({ mousePosition }) => {
       <ContentWrapper>
         {/* Main Hero */}
         <MainHeroSection>
-          <TextContainer>
-            <Title>Imitate Labs</Title>
-            <Tagline>Empowering seamless video edits in the style you love</Tagline>
-          </TextContainer>
-          <Logo src="Group 6.png" alt="Imitate Labs Logo" />
+          <div style={{ textAlign: 'center', maxWidth: '1200px', margin: '0 auto' }}>
+            <ComingSoonText>Coming soon!</ComingSoonText>
+            <WaitlistCard>
+              <WaitlistTitle>Join our waitlist!</WaitlistTitle>
+              <WaitlistDescription>
+                Sign up for our newsletter to receive the latest updates and insights straight to your inbox.
+              </WaitlistDescription>
+              
+              <WaitlistForm onSubmit={handleWaitlistSubmit}>
+                <WaitlistInput
+                  type="email"
+                  placeholder="Enter email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <WaitlistButton type="submit">
+                  {isSubmitted ? 'Thanks!' : 'Join Waitlist'}
+                </WaitlistButton>
+              </WaitlistForm>
+
+              <SocialLinksContainer>
+                <SocialItem href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
+                  <img src="/twitter-x.svg" alt="Twitter/X" />
+                </SocialItem>
+                <SocialItem href="https://instagram.com/" target="_blank" rel="noopener noreferrer">
+                  <img src="/instagram.svg" alt="Instagram" />
+                </SocialItem>
+                <SocialItem href="https://discord.gg/" target="_blank" rel="noopener noreferrer">
+                  <img src="/discord.svg" alt="Discord" />
+                </SocialItem>
+              </SocialLinksContainer>
+            </WaitlistCard>
+          </div>
         </MainHeroSection>
 
         {/* About Section */}
@@ -668,12 +821,21 @@ const HeroSection = ({ mousePosition }) => {
             <SocialMediaSection>
               <SocialTitle>Follow Us On</SocialTitle>
               <SocialGrid>
-                <SocialItem>Discord</SocialItem>
-                <SocialItem>Instagram</SocialItem>
-                <SocialItem>Twitter/X</SocialItem>
-                <SocialItem>YouTube</SocialItem>
-                <SocialItem>TikTok</SocialItem>
-                <SocialItem>LinkedIn</SocialItem>
+                <SocialItem href="https://discord.gg/" target="_blank" rel="noopener noreferrer">
+                  <img src="/discord.svg" alt="Discord" />
+                </SocialItem>
+                <SocialItem href="https://instagram.com/" target="_blank" rel="noopener noreferrer">
+                  <img src="/instagram.svg" alt="Instagram" />
+                </SocialItem>
+                <SocialItem href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
+                  <img src="/twitter-x.svg" alt="Twitter/X" />
+                </SocialItem>
+                <SocialItem href="https://youtube.com/" target="_blank" rel="noopener noreferrer">
+                  <img src="/youtube.svg" alt="YouTube" />
+                </SocialItem>
+                <SocialItem href="https://linkedin.com/" target="_blank" rel="noopener noreferrer">
+                  <img src="/linkedin.svg" alt="LinkedIn" />
+                </SocialItem>
               </SocialGrid>
             </SocialMediaSection>
           </ContactContent>

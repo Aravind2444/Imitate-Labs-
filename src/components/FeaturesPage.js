@@ -2,34 +2,46 @@ import React from 'react';
 import styled from 'styled-components';
 import FeatureCard from './FeatureCard';
 
-const PageSection = styled.div`
-  position: ${props => props.isScrollable ? 'relative' : 'fixed'};
+const PageSection = styled.div.attrs(props => ({
+  style: {
+    position: props.$isScrollable ? 'relative' : 'fixed',
+    zIndex: props.$isScrollable ? 1 : 10,
+    opacity: props.$isActive ? 1 : 0,
+    visibility: props.$isActive ? 'visible' : 'hidden',
+    transform: props.$isActive ? 'translateX(0)' : 'translateX(100%)'
+  }
+}))`
   top: 0;
   left: 0;
   width: 100%;
   min-height: 100vh;
   background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 0, 40, 0.9));
   backdrop-filter: blur(10px);
-  z-index: ${props => props.isScrollable ? 1 : 10};
-  opacity: ${props => props.isActive ? 1 : 0};
-  visibility: ${props => props.isActive ? 'visible' : 'hidden'};
-  transform: translateX(${props => props.isActive ? '0' : '100%'});
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-y: auto;
   padding: 120px 40px 40px 40px;
   box-sizing: border-box;
 `;
 
-const PageContent = styled.div`
+const PageContent = styled.div.attrs(props => ({
+  style: {
+    opacity: props.$isActive ? 1 : 0,
+    transform: props.$isActive ? 'translateX(0)' : 'translateX(50px)'
+  }
+}))`
   max-width: 1200px;
   margin: 0 auto;
   color: white;
-  opacity: ${props => props.isActive ? 1 : 0};
-  transform: translateX(${props => props.isActive ? '0' : '50px'});
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
 `;
 
-const CloseButton = styled.button`
+const CloseButton = styled.button.attrs(props => ({
+  style: {
+    opacity: props.$isActive && !props.$isScrollable ? 1 : 0,
+    visibility: props.$isActive && !props.$isScrollable ? 'visible' : 'hidden',
+    transform: props.$isActive ? 'translateX(0)' : 'translateX(50px)'
+  }
+}))`
   position: absolute;
   top: 40px;
   right: 40px;
@@ -43,9 +55,6 @@ const CloseButton = styled.button`
   cursor: pointer;
   transition: all 0.3s ease;
   backdrop-filter: blur(5px);
-  opacity: ${props => props.isActive && !props.isScrollable ? 1 : 0};
-  visibility: ${props => props.isActive && !props.isScrollable ? 'visible' : 'hidden'};
-  transform: translateX(${props => props.isActive ? '0' : '50px'});
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
 
   &:hover {
@@ -118,11 +127,11 @@ const features = [
 
 const FeaturesPage = ({ isActive, onClose, mousePosition, isScrollable = false }) => {
   return (
-    <PageSection isActive={isActive} isScrollable={isScrollable}>
-      <CloseButton isActive={isActive} isScrollable={isScrollable} onClick={onClose}>
+    <PageSection $isActive={isActive} $isScrollable={isScrollable}>
+      <CloseButton $isActive={isActive} $isScrollable={isScrollable} onClick={onClose}>
         &times;
       </CloseButton>
-      <PageContent isActive={isActive}>
+      <PageContent $isActive={isActive}>
         <PageTitle>Features</PageTitle>
         <PageText>
           <p>
@@ -137,8 +146,8 @@ const FeaturesPage = ({ isActive, onClose, mousePosition, isScrollable = false }
               key={index}
               title={feature.title}
               description={feature.description}
-              index={index}
-              isActive={isActive}
+              $index={index}
+              $isActive={isActive}
               mousePosition={mousePosition}
             />
           ))}

@@ -1,7 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Spotlight = styled.div`
+const Spotlight = styled.div.attrs(props => ({
+  style: {
+    opacity: props.$isVisible ? props.$opacity : 0,
+    left: `${props.$x}px`,
+    top: `${props.$y}px`
+  }
+}))`
   position: fixed;
   width: 800px;
   height: 800px;
@@ -16,12 +22,9 @@ const Spotlight = styled.div`
     transparent 70%
   );
   z-index: 200;
-  opacity: ${props => props.isVisible ? props.opacity : 0};
   transform: translate(-50%, -50%);
   mix-blend-mode: screen;
   transition: opacity 0.3s ease;
-  left: ${props => props.x}px;
-  top: ${props => props.y}px;
 `;
 
 const GlobalSpotlight = ({ mousePosition, isVisible }) => {
@@ -29,10 +32,10 @@ const GlobalSpotlight = ({ mousePosition, isVisible }) => {
 
   return (
     <Spotlight
-      x={mousePosition.x}
-      y={mousePosition.y}
-      isVisible={isVisible}
-      opacity={0.8}
+      $x={mousePosition.x}
+      $y={mousePosition.y}
+      $isVisible={isVisible}
+      $opacity={0.8}
     />
   );
 };

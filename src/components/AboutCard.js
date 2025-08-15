@@ -116,7 +116,13 @@ const AboutBrief = styled.p`
   transition: all 0.3s ease;
 `;
 
-const AboutDetails = styled.div`
+const AboutDetails = styled.div.attrs(props => ({
+  style: {
+    opacity: props.$isHovered ? 1 : 0,
+    visibility: props.$isHovered ? 'visible' : 'hidden',
+    transform: props.$isHovered ? 'scale(1)' : 'scale(0.95)'
+  }
+}))`
   position: absolute;
   top: 0;
   left: 0;
@@ -133,9 +139,6 @@ const AboutDetails = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  opacity: ${props => props.isHovered ? 1 : 0};
-  visibility: ${props => props.isHovered ? 'visible' : 'hidden'};
-  transform: ${props => props.isHovered ? 'scale(1)' : 'scale(0.95)'};
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   z-index: 3;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -157,37 +160,11 @@ const DetailText = styled.p`
   color: rgba(255, 255, 255, 0.9);
 `;
 
-const Particle = styled.div`
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: rgba(132, 0, 255, 1);
-  box-shadow: 0 0 6px rgba(132, 0, 255, 0.6);
-  pointer-events: none;
-  z-index: 100;
-`;
+
 
 const AboutCard = ({ title, brief, details, index, mousePosition }) => {
   const cardRef = useRef(null);
-  const [particles, setParticles] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
-
-  const createParticles = (x, y) => {
-    const newParticles = [];
-    for (let i = 0; i < 3; i++) {
-      newParticles.push({
-        id: Date.now() + i,
-        x: x + (Math.random() - 0.5) * 20,
-        y: y + (Math.random() - 0.5) * 20,
-        vx: (Math.random() - 0.5) * 4,
-        vy: (Math.random() - 0.5) * 4,
-        life: 1,
-        decay: 0.02 + Math.random() * 0.02
-      });
-    }
-    setParticles(prev => [...prev, ...newParticles]);
-  };
 
   const updateCardGlow = (mouseX, mouseY, intensity) => {
     if (cardRef.current) {
@@ -214,32 +191,8 @@ const AboutCard = ({ title, brief, details, index, mousePosition }) => {
   const handleMouseMove = (e) => {
     if (isHovered) {
       updateCardGlow(e.clientX, e.clientY, 0.8);
-      createParticles(e.clientX, e.clientY);
     }
   };
-
-  const handleClick = (e) => {
-    createParticles(e.clientX, e.clientY);
-  };
-
-  // Update particles
-  useEffect(() => {
-    if (particles.length === 0) return;
-
-    const interval = setInterval(() => {
-      setParticles(prev => prev
-        .map(particle => ({
-          ...particle,
-          x: particle.x + particle.vx,
-          y: particle.y + particle.vy,
-          life: particle.life - particle.decay
-        }))
-        .filter(particle => particle.life > 0)
-      );
-    }, 16);
-
-    return () => clearInterval(interval);
-  }, [particles]);
 
   // Update glow based on global mouse position
   useEffect(() => {
@@ -260,36 +213,20 @@ const AboutCard = ({ title, brief, details, index, mousePosition }) => {
   }, [mousePosition, isHovered]);
 
   return (
-    <>
-      <Card
-        ref={cardRef}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onMouseMove={handleMouseMove}
-        onClick={handleClick}
-      >
-        <AboutTitle>{title}</AboutTitle>
-        <AboutBrief>{brief}</AboutBrief>
-        
-        <AboutDetails isHovered={isHovered}>
-          <DetailTitle>{title}</DetailTitle>
-          <DetailText>{details}</DetailText>
-        </AboutDetails>
-      </Card>
-
-      {/* Render particles */}
-      {particles.map(particle => (
-        <Particle
-          key={particle.id}
-          style={{
-            left: `${particle.x}px`,
-            top: `${particle.y}px`,
-            opacity: particle.life,
-            transform: `scale(${particle.life})`
-          }}
-        />
-      ))}
-    </>
+    <Card
+      ref={cardRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onMouseMove={handleMouseMove}
+    >
+      <AboutTitle>{title}</AboutTitle>
+      <AboutBrief>{brief}</AboutBrief>
+      
+      <AboutDetails $isHovered={isHovered}>
+        <DetailTitle>{title}</DetailTitle>
+        <DetailText>{details}</DetailText>
+      </AboutDetails>
+    </Card>
   );
 };
 

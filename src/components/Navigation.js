@@ -36,10 +36,33 @@ const NavContent = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 60px;
-  padding: 0 40px;
+  justify-content: space-between;
+  padding: 0 30px;
   border-radius: inherit;
+`;
+
+const LogoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+`;
+
+const LogoImage = styled.img`
+  height: 32px;
+  width: auto;
+`;
+
+const LogoText = styled.span`
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-family: Arial, sans-serif;
+`;
+
+const NavLinks = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 60px;
 `;
 
 const NavItem = styled.button`
@@ -71,9 +94,15 @@ const Navigation = ({ onNavigate, onContactClick }) => {
   return (
     <GlassNav>
       <NavContent>
-        <NavItem onClick={() => onNavigate('about')}>About</NavItem>
-        <NavItem onClick={() => onNavigate('features')}>Features</NavItem>
-        <NavItem onClick={() => onContactClick('contact')}>Contact</NavItem>
+        <LogoContainer>
+          <LogoImage src="/Group 6.png" alt="Imitate Labs Logo" />
+          <LogoText>Imitate Labs</LogoText>
+        </LogoContainer>
+        <NavLinks>
+          <NavItem onClick={() => onNavigate('about')}>About</NavItem>
+          <NavItem onClick={() => onNavigate('features')}>Features</NavItem>
+          <NavItem onClick={() => onContactClick('contact')}>Contact</NavItem>
+        </NavLinks>
       </NavContent>
     </GlassNav>
   );
